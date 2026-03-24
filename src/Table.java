@@ -2,6 +2,7 @@ import java.awt.*;
 
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 public class Table extends JPanel{
 	Piece[] pieces;
 	
