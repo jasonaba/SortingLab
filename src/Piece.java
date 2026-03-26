@@ -7,12 +7,7 @@ public class Piece implements Comparable{
 	private String name;
 	private boolean highlight;
 	
-	public Piece(int height, int width, int x, int y, Color color, String name) {
-		this.height = height;
-		this.width = width;
-		this.color = color;
-		this.x = x;
-		this.y = y;
+	public Piece(String name) {
 		this.name = name;
 	}
 	
@@ -31,7 +26,7 @@ public class Piece implements Comparable{
 	
 	@Override
 	public String toString() {
-		return "Height: " + height + "\nWidth: " + width + "\nX: " + x + "\nY: " + y +"\n\n";
+		return this.name;
 	}
 
 	/**
@@ -40,10 +35,11 @@ public class Piece implements Comparable{
 	@Override
 	public int compareTo(Object other) {
 		if(other instanceof Piece) {
-			if(this.name.compareTo((Piece) other).getName()){
-				
-			}
+			String name = ((Piece)other).getName();
+			return this.name.compareTo(name);
 		}
+		return -999999;//can i make this my sign of an error
+		
 	}
 	
 	
