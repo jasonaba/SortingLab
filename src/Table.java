@@ -5,6 +5,7 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class Table extends JPanel{
 	Piece[] pieces;
+	int accessCount, mutateCount;
 	
 	public Table(Piece[] pieces) {
 		this.pieces = pieces;
@@ -19,12 +20,11 @@ public class Table extends JPanel{
 	
 	public void bubbleSort() {
 		boolean swapped = false;
-		int modified = 0;
-		int accessed = 0;
 		do {
 			swapped = false;
 			for(int i = 0; i<pieces.length-1; i++) {
 				if(pieces[i].compareTo(pieces[i+1])>0) {
+					accessCount++;
 					swap(i, i+1);
 					swapped = true;
 				}
@@ -40,6 +40,7 @@ public class Table extends JPanel{
 			
 			for(int j = i+1; j<pieces.length; j++) {
 				if(pieces[j].compareTo(pieces[minIndex])<0) {
+					accessCount++;
 					minIndex = j;
 				}
 			}
@@ -50,19 +51,19 @@ public class Table extends JPanel{
 	
 	public void insertionSort() {
 		for(int i = 1; i<pieces.length; i++) {
-			Piece temp = pieces[i];
+			Piece temp = pieces[i]; accessCount++;
 			int j = i -1;
-			while(j>-1 && pieces[j].compareTo(temp)>0) {
-				pieces[j+1] = pieces[j];
+			while(j>-1 && pieces[j].compareTo(temp)>0) {accessCount++;
+				pieces[j+1] = pieces[j]; mutateCount++;
 				j--;
 			}
-			pieces[j+1] = temp;
+			pieces[j+1] = temp; mutateCount++;
 		}
 }
 	private void swap(int i, int j) {
-		Piece temp = pieces[i];
-		pieces[i] = pieces[j];
-		pieces[j] = temp;
+		Piece temp = pieces[i];accessCount++;
+		pieces[i] = pieces[j]; mutateCount++;
+		pieces[j] = temp; mutateCount++;
 	}
 
 }
