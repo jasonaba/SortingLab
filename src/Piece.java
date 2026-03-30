@@ -1,45 +1,79 @@
 import java.awt.*;
 
-public class Piece implements Comparable{
+public class Piece implements Comparable<Piece>{
 
-	private int height, width, x, y, num;//of the rectangle that will be shown for it
-	private Color color;
+	private int x, y, targetY;//for animation
 	private String name;
 	private boolean highlight;
 	
 	public Piece(String name) {
 		this.name = name;
+		this.x = 0;
+		this.y = 0;
+		this.targetY = 0;
+		this.highlight = false;
 	}
 	
 	public void draw(Graphics g) {
-		if(highlight)
-			g.setColor(Color.yellow);
-		else
-			g.setColor(color);
+		Graphics2D g2 = (Graphics2D) g;
 		
-		g.fillRect(x, y-height, width, height);
+		if(highlight) {
+			g.setColor(new Color(255, 255, 150));
+			g2.fillRoundRect(x-5, y-18, 150, 22, 10, 10);
+		}
+		g2.setColor(new Color(40, 40, 40));
+		g2.setFont(new Font("Serif", Font.PLAIN, 30));
+		g.drawString(name, x, y);
 	}
 
 	public String getName() {
 		return this.name;
 	}
-	
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public boolean isHighlight() {
+		return highlight;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getTargetY() { 
+		return targetY; 
+	}
+    public void setTargetY(int targetY) { 
+    	this.targetY = targetY; 
+    }
+
 	@Override
 	public String toString() {
 		return this.name;
+	}
+	public void setHighlight(boolean b) {
+		this.highlight = b;
 	}
 
 	/**
 	 * 
 	 */
 	@Override
-	public int compareTo(Object other) {
-		if(other instanceof Piece) {
-			String name = ((Piece)other).getName();
-			return this.name.compareTo(name);
-		}
-		return -999999;//can i make this my sign of an error
-		
+	public int compareTo(Piece other) {
+		return this.name.compareTo(other.name);
 	}
 	
 	
